@@ -57,6 +57,12 @@ void Program::Update() {
 
         for (Projectile& p : Projectile::projectiles) { 
             p.update(); 
+            if (p.ID != 0){     //Verifica si el projectile es del enemigo.
+                // Verifica si el hitbox del projectile está en el hitbox del jugador.
+                if(HitBox::Collision(p.getHitBox(), player->hitBox)){
+                    PlayerReset(); // Mata al jugador y lo devuelve en la posición inicial.
+                }
+            }
 
         }
 
