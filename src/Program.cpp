@@ -100,6 +100,7 @@ void Program::Draw() {
     //Here is where it will SHOW the score, since in here there are animations and images
 
     background.Draw();
+    DrawText(TextFormat("Score: %d", score), 10, 10, 20, WHITE);
     if (pauseFrames <= 0 && !gameOver) player->draw();
     for (Animation& a : Animation::animations) a.draw();
 
