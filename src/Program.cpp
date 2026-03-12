@@ -1,6 +1,11 @@
 #include "Program.hpp"
 
 Program::Program() {
+
+    //here we will put the score since it is a game variable, like the lives, player, etc.
+    //here we will also put the scores of enemies whenever they die
+
+
     Background::sideWalls = std::pair<HitBox, HitBox>{ 
         HitBox(0, 0, 10, GetScreenHeight()), 
         HitBox(GetScreenWidth() - 10, 0, 10, GetScreenHeight())
@@ -28,17 +33,33 @@ Program::Program() {
 }
 
 void Program::Update() {
+
+    //here we will put the 500 points add up.
+    
     for (Animation& a : Animation::animations) a.update();
     for (int i = 0; i < Animation::animations.size(); i++) {
         if (Animation::animations[i].done) Animation::animations.erase(Animation::animations.begin() + i);
     }
     pauseFrames = std::max(pauseFrames - 1, 0);
 
+    //aqui se ve como el juego esta haciendo ss funciones, osea, que esta corriendo.
     if (!startup && !paused && !gameOver && pauseFrames <= 0) {
         Enemy::ManageEnemies(player->hitBox);
         StdEnemy::attackReset();
         ManageEnemyRespawns();
         player->update();
+    }
+
+    //EDITE AQUI
+    currentScore = score/1000;
+
+    if(currentScore > previousScore){
+     if(lives < 5)
+        lives++
+        previousScore = currentScore;
+    }
+    //HASTA AQUI
+}
 
         for (std::pair<std::pair<float, float>, Enemy*> p : Enemy::enemies) {
             if (p.second && HitBox::Collision(player->hitBox, p.second->hitBox)) {
@@ -53,7 +74,7 @@ void Program::Update() {
                 pauseFrames = 120;
                 lives--;
             }
-        }
+        
 
         for (Projectile& p : Projectile::projectiles) { 
             p.update(); 
@@ -64,9 +85,13 @@ void Program::Update() {
         Projectile::CleanProjectiles();
         Projectile::ProjectileCollision();
     }
-}
+
+
 
 void Program::Draw() {
+
+    //Here is where it will SHOW the score, since in here there are animations and images
+
     background.Draw();
     if (pauseFrames <= 0 && !gameOver) player->draw();
     for (Animation& a : Animation::animations) a.draw();
@@ -87,11 +112,19 @@ void Program::Draw() {
 }
 
 void Program::ManageEnemyRespawns() {
+
+    //here we will put how the enemies respawn quicker as the score increases.
+
+    //"Take into consideration that depending on how you implement this the re-spawn counter can reduce too quickly having enemies spawn at an uncontrollable pace."
+
     delay = std::max(delay - 1, 0);
+
+    int difficulty = score / 1000; //EDITADO
 
     respawnCooldown -= 1;
     if (respawnCooldown <= 0) {
-        respawnCooldown = 1080;
+         respawnCooldown = std::max(1080 - difficulty * 100, 400); // EDITADO
+
         for (std::pair<std::pair<float, float>, Enemy*>& p : Enemy::enemies) {
             if (!p.second && p.first.second != 150) {
                 int eType = GetRandomValue(1, 3);
@@ -148,6 +181,11 @@ void Program::DrawGameOver() {
 }
 
 void Program::KeyInputs() {
+
+    //here we will put the k adding 500 points, since the K is a keyboard input.
+    if(IsKeyPressed('K')) score+= 500;
+        
+
     if ((!gameOver && !startup && IsKeyPressed('P')) || (paused && IsKeyPressed(KEY_ENTER))) paused = !paused;
     if (!paused && !startup && IsKeyPressed('O')) gameOver = !gameOver;
     if (!gameOver && !paused && IsKeyPressed('I')) startup = !startup;
@@ -179,6 +217,10 @@ void Program::PlayerReset() {
 }
 
 void Program::Reset() {
+
+    //here we will put how the score resets when the player dies, since, as the name says, it's a reset function.
+
+
     Enemy::enemies.clear();
     StdEnemy::attackInProgress = false;
     player = new Player((GetScreenWidth() / 2) - 15, GetScreenHeight() * 0.75f);
@@ -187,4 +229,7 @@ void Program::Reset() {
     count = 0;
     delay = 0;
     lives = 3;
+    previousScore = 0; //THIS WAS ADDED
+    score = 0; //THIS WAS ADDED
 }
+
