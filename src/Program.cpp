@@ -123,7 +123,7 @@ void Program::ManageEnemyRespawns() {
 
     respawnCooldown -= 1;
     if (respawnCooldown <= 0) {
-         respawnCooldown = std::max(1080 - difficulty * 100, 400); // EDITADO
+         respawnCooldown = std::max(1080 - difficulty * 150, 400); // EDITADO
 
         for (std::pair<std::pair<float, float>, Enemy*>& p : Enemy::enemies) {
             if (!p.second && p.first.second != 150) {
@@ -217,9 +217,6 @@ void Program::PlayerReset() {
 }
 
 void Program::Reset() {
-
-    //here we will put how the score resets when the player dies, since, as the name says, it's a reset function.
-
 
     Enemy::enemies.clear();
     StdEnemy::attackInProgress = false;
