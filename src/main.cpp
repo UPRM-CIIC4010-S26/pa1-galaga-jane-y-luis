@@ -29,7 +29,7 @@ int main ()
 		Galaga.Draw();
 		Galaga.KeyInputs();
 
-		DrawText(TextFormat("SCORE: %05i", score), 20, 20, 30, WHITE);// Añade Score.
+		DrawText(TextFormat("SCORE: %010i", score), 20, 20, 30, WHITE);// Añade Score.
 		EndDrawing();
 	}
 

@@ -17,6 +17,7 @@ class Enemy {
         
     public:
         int health = 1;
+        int eScore; // Enemy score
         std::pair<float, float> position;
         HitBox hitBox;
 
@@ -55,6 +56,7 @@ class Enemy {
                         if (p2.ID != 1 && HitBox::Collision(p.second->hitBox, p2.getHitBox())) {
                             p.second->health--;
                             p2.del = true;
+                            PlaySound(SoundManager::hit); // sonido cuand0 le das.
                         }
                     }
 
@@ -64,6 +66,7 @@ class Enemy {
                         );
                         p.second = nullptr;
                         score += 100; // Añade 100 de base. Se tiene que actualizar.
+                         PlaySound(SoundManager::dead);
                     }
                 }
             }

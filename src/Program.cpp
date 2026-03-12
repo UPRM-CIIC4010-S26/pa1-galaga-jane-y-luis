@@ -72,6 +72,15 @@ void Program::Update() {
         Projectile::CleanProjectiles();
         Projectile::ProjectileCollision();
     }
+    if (score >= nextLive){     // Logica para incrementar vidas.
+        if(lives == 5){
+            lives = 5;
+        }
+        else{
+            lives += 1;
+        }
+        nextLive += 1000;
+    }
 }
 
 void Program::Draw() {
