@@ -64,6 +64,7 @@ class Enemy {
                         );
                         p.second = nullptr;
                         score += 100; // Añade 100 de base. Se tiene que actualizar.
+                        PlaySound(SoundManager::dead);
                     }
                 }
             }
