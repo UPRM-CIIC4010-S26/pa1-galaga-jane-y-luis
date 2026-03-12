@@ -3,7 +3,6 @@
 #include "resource_dir.h"
 #include "Program.hpp"
 
-extern int score; // Añade la variable de Program.cpp
 
 int main ()
 {
@@ -29,7 +28,6 @@ int main ()
 		Galaga.Draw();
 		Galaga.KeyInputs();
 
-		DrawText(TextFormat("SCORE: %05i", score), 20, 20, 30, WHITE);// Añade Score.
 		EndDrawing();
 	}
 
