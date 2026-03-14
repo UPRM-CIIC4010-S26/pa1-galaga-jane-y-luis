@@ -14,10 +14,10 @@ class Enemy {
         bool spawning = false;
         bool frame = false;
         int frameCooldown = 30;
+        int eScore = 50; // Enemy score
         
-    public:
+        public:
         int health = 1;
-        int eScore; // Enemy score
         std::pair<float, float> position;
         HitBox hitBox;
 
@@ -61,12 +61,13 @@ class Enemy {
                     }
 
                     if (p.second->health <= 0) {
+                        score += p.second->eScore; // Suma los puntos del enemigo cuando mueren.
                         Animation::animations.push_back(
                             Animation(p.second->position.first, p.second->position.second, 155, 0, 33, 33, 30, 30, 4, ImageManager::SpriteSheet)
                         );
                         p.second = nullptr;
-                        score += 100; // Añade 100 de base. Se tiene que actualizar.
-                         PlaySound(SoundManager::dead);
+                        PlaySound(SoundManager::dead);
+
                     }
                 }
             }

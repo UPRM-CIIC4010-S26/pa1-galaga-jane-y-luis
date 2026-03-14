@@ -7,13 +7,14 @@ class StdEnemy : public Enemy {
         int specialCooldown = GetRandomValue(300, 3600);
         int type = GetRandomValue(1, 2);
         inline static int attackCooldown = 360;
-
-    public:
+        
+        public:
         inline static bool attackInProgress = false;
-
+        
         StdEnemy(float x, float y) : Enemy(x, y) { 
             this->cooldown = GetRandomValue(240, 1380);
             this->health = 2; 
+            this->eScore = 100; //enemimo normal tiene valor de 100 puntos.
         }
 
         StdEnemy(float x, float y, bool newSpawn) : Enemy(x, y){

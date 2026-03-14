@@ -1,6 +1,7 @@
 #include "Program.hpp"
 
 int score = 0;
+int highScore = 0; //Se crea el highScore
 
 Program::Program() {
     Background::sideWalls = std::pair<HitBox, HitBox>{ 
@@ -108,7 +109,7 @@ void Program::ManageEnemyRespawns() {
 
     respawnCooldown -= 1;
     if (respawnCooldown <= 0) {
-        respawnCooldown = respawnCooldown / nextLive; // Hace que los enemigos aparezcan más rápudo.
+        respawnCooldown = respawnCooldown / nextLive; // Hace que los enemigos aparezcan más rápido.
         //  "...at an uncontrollable pace" ;)
         for (std::pair<std::pair<float, float>, Enemy*>& p : Enemy::enemies) {
             if (!p.second && p.first.second != 150) {
@@ -144,6 +145,9 @@ void Program::ManageEnemyRespawns() {
 
         count--;
         delay = 20;
+    }
+    if (score >= highScore){
+        highScore = score; // Lógica del highScore
     }
 }
 
