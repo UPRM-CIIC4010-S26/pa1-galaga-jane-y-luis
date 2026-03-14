@@ -28,9 +28,17 @@ Program::Program() {
             new StdEnemy(x, y)
         });
     }
+
+    BGM = LoadMusicStream("audio/PA1_BG_Music.mp3");
+    PlayMusicStream(BGM);
+    if (GetMusicTimePlayed(BGM) == GetMusicTimeLength(BGM)){
+        PlayMusicStream(BGM);
+    }
+// Lógica para que la música vuelva a empezar.
 }
 
 void Program::Update() {
+    UpdateMusicStream(BGM); // Hace que la música suene.
     for (Animation& a : Animation::animations) a.update();
     for (int i = 0; i < Animation::animations.size(); i++) {
         if (Animation::animations[i].done) Animation::animations.erase(Animation::animations.begin() + i);
@@ -212,4 +220,6 @@ void Program::Reset() {
     delay = 0;
     lives = 3;
     score = 0; // resetea el score.
+    StopMusicStream(BGM);
+    PlayMusicStream(BGM); // La música para y vuelve a empezar desdde el comienzo.
 }

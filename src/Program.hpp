@@ -17,15 +17,17 @@ class Program {
         int respawns = 0;
         int count = 0;
         int delay = 0;
-        int lives = 3;
         int pauseFrames = 0;
         int nextLive = 1000;
-
+        
         bool startup = true;
         bool paused = false;
         bool gameOver = false;
-
-    public:
+        
+        Music BGM; // La música.
+        
+        public:
+        int lives = 3; // Se movió a public para que salga la cantidad de vidas en la pantalla del juego.
         Program();
         
         void Update();

@@ -4,7 +4,6 @@
 #include "Program.hpp"
 
 extern int score; // Añade la variable de Program.cpp
-extern int lives; // Añade la variable de vidas de Program.cpp (no está funcionando)
 extern int highScore; // Añade el highScore
 
 int main ()
@@ -31,9 +30,9 @@ int main ()
 		Galaga.Draw();
 		Galaga.KeyInputs();
 
-		DrawText(TextFormat("SCORE: %010i", score), 20, 20, 30, WHITE);// Añade Score.
-		DrawText(TextFormat("HIGH SCORE: %010i", highScore), 350, 20, 30, WHITE); // Añade High Score.
-		// DrawText(TextFormat("LIVES: %01i", lives), 800, 20, 30, WHITE);
+		DrawText(TextFormat("SCORE: %010i", score), 20, 20, 30, WHITE);// Añade Score en el screen.
+		DrawText(TextFormat("HIGH SCORE: %010i", highScore), 350, 20, 30, WHITE); // Añade High Score en el screen.
+		DrawText(TextFormat("LIVES: %0i", Galaga.lives), 850, 20, 30, WHITE); // Añade el total de vidas den el screen.
 		EndDrawing();
 	}
 
